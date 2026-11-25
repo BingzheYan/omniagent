@@ -45,7 +45,7 @@
       --sec-btn-bg: rgba(255, 255, 255, 0.055);
       --sec-btn-hover: rgba(255, 255, 255, 0.095);
 
-      /* Matched OS Badge & Card Highlight (Fresh Ice-Blue / Cyan) */
+      /* Matched OS Badge & Card Highlight */
       --badge-bg: rgba(56, 189, 248, 0.14);
       --badge-border: rgba(56, 189, 248, 0.34);
       --badge-text: #7dd3fc;
@@ -70,7 +70,9 @@
       --blue-text: #a8c7fa;
       --trace-border: rgba(56, 189, 248, 0.55);
       --green: #3fb950;
+      --green-bg: rgba(63, 185, 80, 0.14);
       --amber: #e3b341;
+      --amber-bg: rgba(227, 179, 65, 0.14);
 
       --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, "Songti SC", "Noto Serif SC", serif;
       --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -129,7 +131,9 @@
       --blue-text: #1d4ed8;
       --trace-border: rgba(2, 132, 199, 0.6);
       --green: #15803d;
+      --green-bg: rgba(21, 128, 61, 0.11);
       --amber: #b45309;
+      --amber-bg: rgba(180, 83, 9, 0.11);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -152,6 +156,20 @@
       transition: background-color 0.22s ease, color 0.22s ease;
     }
     a { color: inherit; text-decoration: none; }
+
+    /* Inline SVG Icon Utility */
+    .ui-ic {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      vertical-align: -2.5px;
+    }
+    .ic-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
 
     /* Top Navigation */
     .topbar {
@@ -262,6 +280,13 @@
       color: var(--text-muted);
     }
     .subbar-inner span b { color: var(--text-soft); font-weight: 500; }
+    .subbar-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.15s ease;
+    }
+    .subbar-link:hover { color: var(--text); }
 
     /* Hero Section */
     .hero {
@@ -269,8 +294,8 @@
       margin: 0 auto;
       padding: 68px 32px 56px;
       display: grid;
-      grid-template-columns: minmax(340px, 440px) minmax(0, 1fr);
-      gap: 56px;
+      grid-template-columns: minmax(340px, 430px) minmax(0, 1fr);
+      gap: 52px;
       align-items: center;
     }
     .hero-title {
@@ -358,8 +383,8 @@
       box-shadow: var(--win-shadow);
       overflow: hidden;
       display: grid;
-      grid-template-columns: 235px minmax(0, 1fr);
-      min-height: 470px;
+      grid-template-columns: 236px minmax(0, 1fr);
+      min-height: 488px;
       color: var(--win-text);
     }
     .app-sidebar {
@@ -387,24 +412,52 @@
       background: var(--code-bg);
       border-radius: 6px;
       padding: 2px;
-      font-size: 11px;
+      gap: 2px;
       color: var(--win-muted);
     }
-    .win-mode-pills span { padding: 2px 6px; border-radius: 4px; }
-    .win-mode-pills span.on { background: var(--bg-card); color: var(--win-text); box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+    .win-mode-pills button {
+      border: none;
+      background: transparent;
+      color: inherit;
+      padding: 3px 7px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, color 0.15s;
+    }
+    .win-mode-pills button:hover { color: var(--win-text); }
+    .win-mode-pills button.on {
+      background: var(--bg-card);
+      color: var(--win-text);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    }
 
     .sb-nav { display: flex; flex-direction: column; gap: 3px; font-size: 12.5px; color: var(--win-soft); }
     .sb-item {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 6px 9px;
+      gap: 9px;
+      padding: 7px 9px;
       border-radius: 7px;
       cursor: pointer;
       transition: background 0.15s, color 0.15s;
     }
+    .sb-item .sb-ic {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      color: var(--win-muted);
+      transition: color 0.15s;
+      flex-shrink: 0;
+    }
     .sb-item:hover { background: var(--code-bg); color: var(--win-text); }
+    .sb-item:hover .sb-ic { color: var(--win-text); }
     .sb-item.active { background: var(--code-bg); color: var(--win-text); font-weight: 600; }
+    .sb-item.active .sb-ic { color: var(--badge-text); }
     .sb-badge {
       font-size: 10px;
       padding: 1px 6px;
@@ -412,6 +465,7 @@
       background: var(--badge-bg);
       color: var(--badge-text);
       margin-left: auto;
+      font-weight: 600;
     }
     .sb-group-label {
       font-size: 11px;
@@ -434,32 +488,78 @@
       display: inline-flex; align-items: center; justify-content: center;
       font-size: 10px; color: #fff; font-weight: 700;
     }
+    .sb-gear-btn {
+      border: none;
+      background: transparent;
+      color: var(--win-muted);
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .sb-gear-btn:hover,
+    .sb-gear-btn.active {
+      background: var(--code-bg);
+      color: var(--win-text);
+    }
 
-    /* App Main Chat Area */
+    /* App Main Area */
     .app-main {
-      padding: 18px 24px 18px;
+      padding: 18px 22px 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       background: var(--win-main);
+      min-width: 0;
     }
     .app-header {
       font-size: 13px;
       color: var(--win-muted);
-      padding-bottom: 14px;
+      padding-bottom: 13px;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .app-header-left {
+      display: inline-flex;
+      align-items: center;
       gap: 6px;
+      min-width: 0;
     }
     .app-header b { color: var(--win-text); font-weight: 600; }
+    .hdr-pill {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 99px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--badge-text);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .hdr-pill.ok {
+      background: var(--green-bg);
+      border-color: rgba(63, 185, 80, 0.32);
+      color: var(--green);
+    }
+
     .chat-body {
-      padding: 18px 0;
+      padding: 16px 0;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
       font-size: 13.5px;
-      line-height: 1.62;
+      line-height: 1.6;
+      flex: 1;
     }
     .user-msg {
       align-self: flex-start;
@@ -468,10 +568,10 @@
       color: var(--blue-text);
       padding: 11px 15px;
       border-radius: 11px;
-      max-width: 92%;
+      max-width: 94%;
       font-size: 13px;
     }
-    .agent-msg { color: var(--win-soft); font-size: 13.2px; }
+    .agent-msg { color: var(--win-soft); font-size: 13.1px; }
     .agent-msg code {
       font-family: var(--mono);
       font-size: 12px;
@@ -485,12 +585,18 @@
       color: var(--win-muted);
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      padding: 7px 11px;
+      gap: 5px;
+      padding: 8px 12px;
       border-left: 2px solid var(--trace-border);
       background: var(--steps-bg);
       border-radius: 0 7px 7px 0;
     }
+    .trace-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .trace-row .ui-ic { color: var(--badge-text); width: 14px; height: 14px; }
     .tool-trace code {
       font-family: var(--mono);
       color: var(--win-text);
@@ -498,19 +604,193 @@
     .diff-pill {
       display: inline-flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
       font-family: var(--mono);
       font-size: 11.5px;
-      padding: 5px 10px;
+      padding: 6px 11px;
       border-radius: 7px;
       background: var(--steps-bg);
       border: 1px solid var(--border);
       color: var(--win-text);
       width: fit-content;
     }
+    .diff-pill .ui-ic { width: 14px; height: 14px; color: var(--badge-text); }
     .diff-pill .add { color: var(--green); font-weight: 600; }
     .diff-pill .del { color: #ef4444; font-weight: 600; }
     .diff-pill .link-accent { color: var(--badge-text); }
+
+    /* Rich Panel Views inside App Preview (Agents / Connectors / Memory / New Chat / Settings) */
+    .panel-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .panel-card {
+      background: var(--steps-bg);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 9px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .panel-card.clickable { cursor: pointer; }
+    .panel-card.clickable:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-card-hover);
+    }
+    .panel-card.selected {
+      border-color: var(--rec-border);
+      box-shadow: 0 0 0 1px var(--rec-ring);
+    }
+    .pc-head {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--win-text);
+    }
+    .pc-head .ui-ic { color: var(--badge-text); width: 14px; height: 14px; }
+    .pc-code {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 400;
+      color: var(--win-muted);
+      background: var(--code-bg);
+      padding: 0.5px 5px;
+      border-radius: 4px;
+    }
+    .pc-tag {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 1px 6px;
+      border-radius: 99px;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+    }
+    .pc-tag.ok {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+    .pc-tag.warn {
+      background: var(--amber-bg);
+      color: var(--amber);
+    }
+    .pc-desc {
+      font-size: 11.5px;
+      color: var(--win-muted);
+      line-height: 1.45;
+    }
+    .panel-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .panel-row {
+      background: var(--steps-bg);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .pr-main {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      min-width: 0;
+    }
+    .pr-ic {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: var(--code-bg);
+      color: var(--badge-text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .pr-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--win-text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .pr-sub {
+      font-size: 11.5px;
+      color: var(--win-muted);
+      line-height: 1.45;
+    }
+    .mini-btn {
+      border: 1px solid var(--border-strong);
+      background: var(--sec-btn-bg);
+      color: var(--win-text);
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .mini-btn:hover { background: var(--sec-btn-hover); }
+
+    .mem-subtabs {
+      display: inline-flex;
+      gap: 4px;
+      background: var(--steps-bg);
+      border: 1px solid var(--border);
+      padding: 3px;
+      border-radius: 8px;
+      width: fit-content;
+    }
+    .mem-subtab {
+      border: none;
+      background: transparent;
+      color: var(--win-muted);
+      font-size: 11.5px;
+      padding: 4px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: var(--sans);
+      transition: background 0.15s, color 0.15s;
+    }
+    .mem-subtab.active {
+      background: var(--bg-card);
+      color: var(--win-text);
+      font-weight: 600;
+    }
+
+    .panel-foot-note {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 9px;
+      background: var(--win-composer);
+      border: 1px solid var(--border);
+      font-size: 11.5px;
+      color: var(--win-muted);
+    }
+    .panel-foot-note span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
 
     .composer-mock {
       border: 1px solid var(--border-strong);
@@ -521,9 +801,11 @@
       flex-direction: column;
       gap: 8px;
     }
+    .composer-mock[hidden] { display: none; }
     .composer-top {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-size: 12.5px;
       color: var(--win-muted);
     }
@@ -533,6 +815,16 @@
       align-items: center;
       font-size: 11.5px;
       color: var(--win-muted);
+    }
+    .composer-tools {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .composer-tools span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
     .status-dot {
       display: inline-block;
@@ -565,7 +857,7 @@
       gap: 14px;
     }
     .way-tile {
-      width: 126px;
+      width: 136px;
       padding: 16px 10px 13px;
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -589,7 +881,6 @@
       display: flex; align-items: center; justify-content: center;
       background: var(--way-icon-bg);
       color: var(--text);
-      font-size: 18px;
     }
     .way-name { font-size: 12.5px; color: var(--text-soft); font-weight: 500; }
 
@@ -647,6 +938,11 @@
       font-size: 21px;
       font-weight: 600;
       color: var(--text);
+    }
+    .os-title-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
     }
     .os-badge {
       font-size: 11.5px;
@@ -752,7 +1048,25 @@
       border-radius: 14px;
       padding: 22px;
     }
-    .feat-card h3 { font-size: 16px; margin-bottom: 8px; color: var(--text); }
+    .feat-card h3 {
+      font-size: 16px;
+      margin-bottom: 9px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .feat-ic {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: var(--way-icon-bg);
+      color: var(--badge-text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
     .feat-card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; }
 
     footer {
@@ -766,7 +1080,7 @@
     @media (max-width: 980px) {
       .hero { grid-template-columns: 1fr; padding-top: 40px; }
       .app-window { grid-template-columns: 1fr; }
-      .app-sidebar { display: none; }
+      .panel-grid { grid-template-columns: 1fr; }
       .dl-cards, .feat-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
     }
@@ -790,7 +1104,9 @@
       </nav>
       <div class="nav-actions">
         <button type="button" id="theme-toggle" class="theme-toggle" aria-label="切换深色或浅色模式">
-          <span id="theme-icon">☀️</span>
+          <span id="theme-icon" class="ic-wrap">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          </span>
           <span id="theme-label">浅色模式</span>
         </button>
         <a href="./docs.html" class="btn-nav-outline">使用指南</a>
@@ -803,7 +1119,10 @@
   <div class="subbar">
     <div class="subbar-inner">
       <span>Product &nbsp;/&nbsp; <b>OmniAgent Desktop &amp; Workbench v0.2.0</b></span>
-      <a href="#downloads">支持 macOS 与 Windows 双平台 ▾</a>
+      <a href="#downloads" class="subbar-link">
+        <span>支持 macOS 与 Windows 双平台</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
     </div>
   </div>
 
@@ -816,14 +1135,14 @@
       </p>
       <div class="cta-stack">
         <a id="hero-dl-btn" href="./downloads/OmniAgent-v0.2.0-macOS-Universal.dmg" class="btn-primary-dl" download>
-          <span id="hero-dl-icon" style="display:inline-flex;align-items:center;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.3c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/></svg>
+          <span id="hero-dl-icon" class="ic-wrap">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.3c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/></svg>
           </span>
           <span id="hero-dl-text">Download for macOS</span>
         </a>
         <a href="./docs.html" class="btn-secondary-doc">
           <span>Read documentation</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
         </a>
       </div>
       <p class="avail-note">
@@ -835,60 +1154,107 @@
     </div>
 
     <!-- Interactive Workbench Window Preview -->
-    <div class="app-window" aria-label="OmniAgent 工作台预览">
-      <aside class="app-sidebar">
+    <div class="app-window" aria-label="OmniAgent 工作台交互预览">
+      <aside class="app-sidebar" id="sidebar-nav">
         <div>
           <div class="win-top">
             <div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-            <div class="win-mode-pills"><span class="on">❐</span><span>&lt;/&gt;</span></div>
+            <div class="win-mode-pills" role="group" aria-label="视图模式切换">
+              <button type="button" class="on" data-mode="workbench" title="工作台视图">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16"/></svg>
+              </button>
+              <button type="button" data-mode="cli" title="CLI 终端视图">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </button>
+            </div>
           </div>
+
           <div class="sb-nav">
-            <div class="sb-item"><span>＋</span><span>新建任务对话</span></div>
-            <div class="sb-item"><span>🤖</span><span>智能体矩阵</span><span class="sb-badge">7</span></div>
-            <div class="sb-item"><span>🔌</span><span>外部系统接入</span></div>
-            <div class="sb-item"><span>🧠</span><span>记忆与用户画像</span></div>
+            <div class="sb-item" data-scene="new">
+              <span class="sb-ic">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              </span>
+              <span>新建任务对话</span>
+            </div>
+            <div class="sb-item" data-scene="agents">
+              <span class="sb-ic">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="4"/><path d="M9 11v2M15 11v2M12 3v3M8 21h8"/></svg>
+              </span>
+              <span>智能体矩阵</span>
+              <span class="sb-badge">7</span>
+            </div>
+            <div class="sb-item" data-scene="connectors">
+              <span class="sb-ic">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V3M15 8V3"/><path d="M6 8h12v4a6 6 0 0 1-12 0V8Z"/></svg>
+              </span>
+              <span>外部系统接入</span>
+            </div>
+            <div class="sb-item" data-scene="memory">
+              <span class="sb-ic">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.5a3.5 3.5 0 0 0-5.9 2.5A3.5 3.5 0 0 0 4.5 13a3.5 3.5 0 0 0 1.8 6.5A3.5 3.5 0 0 0 12 20V4.5Z"/><path d="M12 4.5a3.5 3.5 0 0 1 5.9 2.5A3.5 3.5 0 0 1 19.5 13a3.5 3.5 0 0 1-1.8 6.5A3.5 3.5 0 0 1 12 20V4.5Z"/></svg>
+              </span>
+              <span>记忆与用户画像</span>
+            </div>
           </div>
+
           <div class="sb-group-label">点击切换演示场景</div>
-          <div class="sb-nav" id="demo-tabs">
-            <div class="sb-item active" data-scene="code"><span>💻</span><span>跨平台代码修复与验证</span></div>
-            <div class="sb-item" data-scene="paper"><span>📊</span><span>面板计量与财税论文排版</span></div>
-            <div class="sb-item" data-scene="expense"><span>🧾</span><span>票据核验与报销自动填报</span></div>
+          <div class="sb-nav">
+            <div class="sb-item active" data-scene="code">
+              <span class="sb-ic">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>
+              </span>
+              <span>跨平台代码修复与验证</span>
+            </div>
+            <div class="sb-item" data-scene="paper">
+              <span class="sb-ic">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 16v-5M12 16V8M17 16v-3"/></svg>
+              </span>
+              <span>面板计量与财税论文排版</span>
+            </div>
+            <div class="sb-item" data-scene="expense">
+              <span class="sb-ic">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
+              </span>
+              <span>票据核验与报销自动填报</span>
+            </div>
           </div>
         </div>
+
         <div class="sb-footer">
-          <span style="display:inline-flex;align-items:center;gap:7px;"><span class="sb-avatar">O</span><span>Desktop Admin</span></span>
-          <span>⚙️</span>
+          <span style="display:inline-flex;align-items:center;gap:7px;">
+            <span class="sb-avatar">O</span>
+            <span>Desktop Admin</span>
+          </span>
+          <button type="button" class="sb-gear-btn" data-scene="settings" title="偏好与模型密钥设置" aria-label="偏好与模型密钥设置">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.77 1.02 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+          </button>
         </div>
       </aside>
 
       <main class="app-main">
-        <div>
-          <div class="app-header" id="scene-header">
-            <b>omni-project</b> <span>/</span> <span>定位并修复 Windows 进程树残留与编码兼容问题</span>
-          </div>
-          <div class="chat-body" id="scene-body">
-            <div class="user-msg">在 Windows 11 上运行后台开发服务超时后子进程未退出，且中文终端输出偶发乱码，请定位根因、修复并跑通全量测试。</div>
-            <div class="agent-msg">已复现问题：Windows 下不存在 <code>signal.SIGKILL</code>，且顶层 <code>cmd.exe</code> 终止后未连带清理子进程树。正在切换为 <code>taskkill /F /T</code> 并补充 UTF-8 / GB18030 自适应解码。</div>
-            <div class="tool-trace">
-              <span>🔎 Read 4 files · inspected <code>tools/shell.py</code>, <code>verification.py</code></span>
-              <span>🧪 Ran pytest · <code>110 passed in 41.2s</code></span>
-            </div>
-            <div class="diff-pill">
-              <span>📄 4 files changed</span>
-              <span class="add">+68</span>
-              <span class="del">-14</span>
-              <span class="link-accent">[Review Diff]</span>
-            </div>
-          </div>
+        <div style="display:flex;flex-direction:column;flex:1;min-width:0;">
+          <div class="app-header" id="scene-header"></div>
+          <div class="chat-body" id="scene-body"></div>
         </div>
 
-        <div class="composer-mock">
+        <div class="composer-mock" id="scene-composer">
           <div class="composer-top">
-            <span>输入任务目标，OmniAgent 将自主规划、执行并验证交付…</span>
-            <span>↵</span>
+            <span id="composer-placeholder">输入任务目标，OmniAgent 将自主规划、执行并验证交付…</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 10 4 15 9 20"/><path d="M20 4v7a4 4 0 0 1-4 4H4"/></svg>
           </div>
           <div class="composer-foot">
-            <span>＋ &nbsp;📎 &nbsp;⚡ Smart 审批</span>
+            <div class="composer-tools">
+              <span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              </span>
+              <span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.44 11.05-8.49 8.49a5.5 5.5 0 0 1-7.78-7.78l9.19-9.19a3.5 3.5 0 0 1 4.95 4.95l-9.2 9.19a1.5 1.5 0 0 1-2.12-2.12l8.49-8.48"/></svg>
+              </span>
+              <span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                Smart 审批
+              </span>
+            </div>
             <span>DeepSeek / Multi-Model <span class="status-dot"></span></span>
           </div>
         </div>
@@ -896,33 +1262,38 @@
     </div>
   </section>
 
-  <!-- Other ways strip -->
+  <!-- Other ways strip (4 items) -->
   <section class="ways-section">
     <p class="ways-label">Other ways to use OmniAgent:</p>
     <div class="ways-grid">
       <a class="way-tile" href="./downloads/OmniAgent-v0.2.0-macOS-Universal.dmg" download>
-        <div class="way-icon"></div>
+        <div class="way-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.3c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/></svg>
+        </div>
         <span class="way-name">macOS 桌面端</span>
       </a>
       <a class="way-tile" href="./downloads/OmniAgent-v0.2.0-Windows-x64.zip" download>
-        <div class="way-icon">⊞</div>
+        <div class="way-icon">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="2" y="2" width="9.1" height="9.1" fill="#F25022"/>
+            <rect x="12.9" y="2" width="9.1" height="9.1" fill="#7FBA00"/>
+            <rect x="2" y="12.9" width="9.1" height="9.1" fill="#00A4EF"/>
+            <rect x="12.9" y="12.9" width="9.1" height="9.1" fill="#FFB900"/>
+          </svg>
+        </div>
         <span class="way-name">Windows 桌面端</span>
       </a>
       <a class="way-tile" href="./docs.html#modes">
-        <div class="way-icon">🌐</div>
+        <div class="way-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14.5 14.5 0 0 0 0 18 14.5 14.5 0 0 0 0-18"/></svg>
+        </div>
         <span class="way-name">Web 工作台</span>
       </a>
       <a class="way-tile" href="./docs.html#modes">
-        <div class="way-icon">&gt;_</div>
+        <div class="way-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="m7 9 3 3-3 3M13 15h4"/></svg>
+        </div>
         <span class="way-name">CLI 命令行</span>
-      </a>
-      <a class="way-tile" href="./docs.html#agents">
-        <div class="way-icon">🤖</div>
-        <span class="way-name">7 大专业智能体</span>
-      </a>
-      <a class="way-tile" href="./docs.html#connectors">
-        <div class="way-icon">🔌</div>
-        <span class="way-name">MCP 与外部系统</span>
       </a>
     </div>
   </section>
@@ -941,7 +1312,10 @@
           <div class="dl-card-top">
             <div>
               <div class="os-title">
-                <span> macOS 安装包</span>
+                <span class="os-title-main">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.3c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/></svg>
+                  <span>macOS 安装包</span>
+                </span>
                 <span class="os-badge" id="badge-macos" style="display:none;">已匹配当前系统</span>
               </div>
               <p class="os-sub">支持 macOS 12+（Apple Silicon M1–M4 与 Intel 通用原生窗口）</p>
@@ -956,7 +1330,8 @@
         <div>
           <div class="dl-btn-row">
             <a class="dl-btn-main" id="dl-mac-dmg" href="./downloads/OmniAgent-v0.2.0-macOS-Universal.dmg" download>
-              <span> 下载 macOS 镜像 (.dmg)</span>
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.3c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/></svg>
+              <span>下载 macOS 镜像 (.dmg)</span>
             </a>
             <a class="dl-btn-alt" id="dl-mac-zip" href="./downloads/OmniAgent-v0.2.0-macOS-Universal.zip" download>
               <span>下载 .zip 压缩包</span>
@@ -975,7 +1350,15 @@
           <div class="dl-card-top">
             <div>
               <div class="os-title">
-                <span>⊞ Windows 安装包</span>
+                <span class="os-title-main">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <rect x="2" y="2" width="9.1" height="9.1" fill="#F25022"/>
+                    <rect x="12.9" y="2" width="9.1" height="9.1" fill="#7FBA00"/>
+                    <rect x="2" y="12.9" width="9.1" height="9.1" fill="#00A4EF"/>
+                    <rect x="12.9" y="12.9" width="9.1" height="9.1" fill="#FFB900"/>
+                  </svg>
+                  <span>Windows 安装包</span>
+                </span>
                 <span class="os-badge" id="badge-windows" style="display:none;">已匹配当前系统</span>
               </div>
               <p class="os-sub">支持 Windows 10 / Windows 11（64位，内置离线中文 OCR 与独立桌面窗口）</p>
@@ -990,7 +1373,13 @@
         <div>
           <div class="dl-btn-row">
             <a class="dl-btn-main" id="dl-win-zip" href="./downloads/OmniAgent-v0.2.0-Windows-x64.zip" download>
-              <span>⊞ 下载 Windows 版 (.zip)</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="2" y="2" width="9.1" height="9.1" fill="#F25022"/>
+                <rect x="12.9" y="2" width="9.1" height="9.1" fill="#7FBA00"/>
+                <rect x="2" y="12.9" width="9.1" height="9.1" fill="#00A4EF"/>
+                <rect x="12.9" y="12.9" width="9.1" height="9.1" fill="#FFB900"/>
+              </svg>
+              <span>下载 Windows 版 (.zip)</span>
             </a>
             <a class="dl-btn-alt" href="./docs.html#windows">
               <span>Windows 图文说明</span>
@@ -1013,15 +1402,30 @@
     </div>
     <div class="feat-grid">
       <div class="feat-card">
-        <h3>💻 闭环软件工程研发</h3>
+        <h3>
+          <span class="feat-ic">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </span>
+          <span>闭环软件工程研发</span>
+        </h3>
         <p>先读后改防陈旧检查、多子智能体并行调度（coder / researcher / reviewer）、AST 与沙箱端口实测验收、可拖拽 Diff 在线审阅。</p>
       </div>
       <div class="feat-card">
-        <h3>📊 实证计量与国标论文排版</h3>
+        <h3>
+          <span class="feat-ic">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 16v-5M12 16V8M17 16v-3"/></svg>
+          </span>
+          <span>实证计量与国标论文排版</span>
+        </h3>
         <p>持久化 Python 内核内置双向固定效应 PanelOLS、平行趋势图与三线表，一键输出《财政研究》体例与 GB/T 9704 公文双格式（Word + PDF）。</p>
       </div>
       <div class="feat-card">
-        <h3>🧾 智能报销与业务网页操作</h3>
+        <h3>
+          <span class="feat-ic">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
+          </span>
+          <span>智能报销与业务网页操作</span>
+        </h3>
         <p>支持 macOS Vision 与 Windows 系统离线中文 OCR 识别全电发票/行程单，驱动本机浏览器填报 OA/ERP（遇登录页自动提示用户亲自登录）。</p>
       </div>
     </div>
@@ -1032,6 +1436,38 @@
   </footer>
 
   <script>
+    /* SVG Icon Library (Zero Emoji) */
+    const svgIcon = (paths, cls = "ui-ic") =>
+      `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+    const IC = {
+      sun: svgIcon(`<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>`),
+      moon: svgIcon(`<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>`),
+      search: svgIcon(`<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>`),
+      terminal: svgIcon(`<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="m7 9 3 3-3 3M13 15h4"/>`),
+      diff: svgIcon(`<path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"/><path d="M9 12h6M12 9v6M9 17h6"/>`),
+      cpu: svgIcon(`<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>`),
+      shield: svgIcon(`<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>`),
+      box: svgIcon(`<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/>`),
+      receipt: svgIcon(`<path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6M9 16h4"/>`),
+      lock: svgIcon(`<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>`),
+      checkCircle: svgIcon(`<circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.3 2.3 4.8-4.8"/>`),
+      check: svgIcon(`<polyline points="20 6 9 17 4 12"/>`),
+      sparkles: svgIcon(`<path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Z"/>`),
+      code: svgIcon(`<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>`),
+      chart: svgIcon(`<path d="M3 3v18h18"/><path d="M7 16v-5M12 16V8M17 16v-3"/>`),
+      academic: svgIcon(`<path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12.5V17c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"/>`),
+      plug: svgIcon(`<path d="M12 22v-5"/><path d="M9 8V3M15 8V3"/><path d="M6 8h12v4a6 6 0 0 1-12 0V8Z"/>`),
+      globe: svgIcon(`<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14.5 14.5 0 0 0 0 18 14.5 14.5 0 0 0 0-18"/>`),
+      database: svgIcon(`<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/>`),
+      mail: svgIcon(`<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3 7 9 6 9-6"/>`),
+      fileText: svgIcon(`<path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"/><path d="M9 13h6M9 17h4"/>`),
+      brain: svgIcon(`<path d="M12 4.5a3.5 3.5 0 0 0-5.9 2.5A3.5 3.5 0 0 0 4.5 13a3.5 3.5 0 0 0 1.8 6.5A3.5 3.5 0 0 0 12 20V4.5Z"/><path d="M12 4.5a3.5 3.5 0 0 1 5.9 2.5A3.5 3.5 0 0 1 19.5 13a3.5 3.5 0 0 1-1.8 6.5A3.5 3.5 0 0 1 12 20V4.5Z"/>`),
+      key: svgIcon(`<circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.3-9.3M16 7l3 3"/>`),
+      bolt: svgIcon(`<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>`),
+      agents: svgIcon(`<rect x="4" y="6" width="16" height="12" rx="4"/><path d="M9 11v2M15 11v2M12 3v3M8 21h8"/>`),
+    };
+
     /* Theme Toggle (Dark / Light) */
     const rootEl = document.documentElement;
     const toggleBtn = document.getElementById("theme-toggle");
@@ -1041,10 +1477,10 @@
     function syncThemeBtn() {
       const cur = rootEl.getAttribute("data-theme") || "dark";
       if (cur === "light") {
-        themeIcon.textContent = "🌙";
+        themeIcon.innerHTML = IC.moon;
         themeLabel.textContent = "深色模式";
       } else {
-        themeIcon.textContent = "☀️";
+        themeIcon.innerHTML = IC.sun;
         themeLabel.textContent = "浅色模式";
       }
     }
@@ -1058,9 +1494,9 @@
       syncThemeBtn();
     });
 
-    /* OS Auto-Detection */
-    const WIN_ICON = `<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8.5v8.5H3V3zm9.5 0H21v8.5h-8.5V3zM3 12.5h8.5V21H3v-8.5zm9.5 0H21V21h-8.5v-8.5z"/></svg>`;
-    const MAC_ICON = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.3c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/></svg>`;
+    /* OS Auto-Detection with 4-color Windows SVG & Apple SVG */
+    const WIN_ICON = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="9.1" height="9.1" fill="#F25022"/><rect x="12.9" y="2" width="9.1" height="9.1" fill="#7FBA00"/><rect x="2" y="12.9" width="9.1" height="9.1" fill="#00A4EF"/><rect x="12.9" y="12.9" width="9.1" height="9.1" fill="#FFB900"/></svg>`;
+    const MAC_ICON = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.3c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/></svg>`;
 
     const ua = (navigator.userAgent || "").toLowerCase();
     const isWin = ua.includes("win");
@@ -1109,72 +1545,372 @@
         try {
           await navigator.clipboard.writeText(sha);
           const old = btn.textContent;
-          btn.textContent = "已复制 SHA-256 ✓";
+          btn.textContent = "已复制 SHA-256";
           setTimeout(() => { btn.textContent = old; }, 2000);
         } catch {}
       });
     });
 
+    /* Interactive Sidebar Scenes & Functional Panels */
+    let selectedAgent = "general";
+    let memorySubTab = "portrait";
+
+    function renderMemoryContent() {
+      if (memorySubTab === "projects") {
+        return `
+          <div class="panel-list">
+            <div class="panel-row">
+              <div class="pr-main">
+                <span class="pr-ic">${IC.academic}</span>
+                <div>
+                  <div class="pr-title">地方财政韧性与转移支付实证论文 <span class="pc-tag">进行中</span></div>
+                  <div class="pr-sub">已完成基准回归与平行趋势检验，下一步补充异质性分析并生成《财政研究》定稿 Word/PDF。</div>
+                </div>
+              </div>
+              <button type="button" class="mini-btn" data-jump-scene="paper">继续推进</button>
+            </div>
+            <div class="panel-row">
+              <div class="pr-main">
+                <span class="pr-ic">${IC.receipt}</span>
+                <div>
+                  <div class="pr-title">11 月差旅票据核验与 OA 填报 <span class="pc-tag warn">待本人登录</span></div>
+                  <div class="pr-sub">9 份发票离线核对无差额（¥2,841.00），等待用户登录 OA 后自动填入草稿。</div>
+                </div>
+              </div>
+              <button type="button" class="mini-btn" data-jump-scene="expense">查看对话</button>
+            </div>
+          </div>`;
+      }
+      if (memorySubTab === "memories") {
+        return `
+          <div class="panel-list">
+            <div class="panel-row">
+              <div class="pr-main">
+                <span class="pr-ic">${IC.code}</span>
+                <div>
+                  <div class="pr-title">跨平台进程清理规范 <span class="pc-code">coding_rule</span></div>
+                  <div class="pr-sub">Windows 超时终止统一使用 taskkill /F /T 清理子进程树，终端输出优先 UTF-8 回退 GB18030。</div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-row">
+              <div class="pr-main">
+                <span class="pr-ic">${IC.shield}</span>
+                <div>
+                  <div class="pr-title">外部系统交互边界 <span class="pc-code">safety_pref</span></div>
+                  <div class="pr-sub">报销、邮件与外部接口提交前必须展示预览清单并等待人工确认，绝不代填账号密码。</div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+      }
+      return `
+        <div class="panel-grid">
+          <div class="panel-card">
+            <div class="pc-head">${IC.academic}<span>学术论文体例</span><span class="pc-tag">已生效</span></div>
+            <div class="pc-desc">参照《财政研究》标准学术三线表，括号内报告聚类稳健标准误，先引出图表再做机制解读。</div>
+          </div>
+          <div class="panel-card">
+            <div class="pc-head">${IC.fileText}<span>党政公文规范</span><span class="pc-tag">已生效</span></div>
+            <div class="pc-desc">遵循 GB/T 9704 国标：标题二号小标宋、正文三号仿宋_GB2312、四级标题规范序号。</div>
+          </div>
+          <div class="panel-card">
+            <div class="pc-head">${IC.code}<span>代码工程偏好</span><span class="pc-tag">已生效</span></div>
+            <div class="pc-desc">Python 完整类型注解、先读后改最小侵入式 Diff，交付前自动运行 pytest 验证无回归。</div>
+          </div>
+          <div class="panel-card">
+            <div class="pc-head">${IC.chart}<span>数据报表口径</span><span class="pc-tag">已生效</span></div>
+            <div class="pc-desc">统计金额统一折算为「万元」保留 2 位小数，回归系数保留 3 位小数，修改默认另存修订稿。</div>
+          </div>
+        </div>`;
+    }
+
     const SCENES = {
+      new: {
+        showComposer: true,
+        placeholder: "直接描述目标（如：修复测试报错、跑面板回归并排版、核验桌面发票）…",
+        header: () => `
+          <div class="app-header-left">${IC.sparkles}<b>新建任务对话</b> <span>/</span> <span>全能主控 (${selectedAgent})</span></div>
+          <span class="hdr-pill">自主规划 · 闭环验证</span>`,
+        body: () => `
+          <div class="agent-msg">你好！只需告诉我最终交付目标，OmniAgent 会自主阅读工作区、选择工具或并行委派专业子智能体完成任务。点击下方任一典型目标可直接查看执行过程：</div>
+          <div class="panel-list">
+            <div class="panel-card clickable" data-jump-scene="code">
+              <div class="pc-head">${IC.code}<span>定位修复 Windows 进程树残留与终端编码乱码</span><span class="pc-tag">软件工程</span></div>
+              <div class="pc-desc">自动复现问题 → 最小侵入式修改 → 跑通 110 项 pytest 回归并生成可审阅 Diff。</div>
+            </div>
+            <div class="panel-card clickable" data-jump-scene="paper">
+              <div class="pc-head">${IC.chart}<span>面板双向固定效应 DID 回归与《财政研究》论文排版</span><span class="pc-tag">计量科研</span></div>
+              <div class="pc-desc">持久化 Python 内核建模 → 视觉自检平行趋势图 → 输出三线表及 Word + PDF 双格式定稿。</div>
+            </div>
+            <div class="panel-card clickable" data-jump-scene="expense">
+              <div class="pc-head">${IC.receipt}<span>11 月差旅票据离线 OCR 核验与单位 OA 自动填报</span><span class="pc-tag">跨系统办公</span></div>
+              <div class="pc-desc">本机离线识别全电发票与行程单 → 交叉核对零差额 → 提示本人登录 OA 后自动填入草稿。</div>
+            </div>
+          </div>`
+      },
+      agents: {
+        showComposer: false,
+        header: () => `
+          <div class="app-header-left">${IC.agents}<b>智能体与专业子智能体矩阵</b> <span>/</span> <span>7 大内置角色</span></div>
+          <span class="hdr-pill">支持 delegate_parallel 并行协同</span>`,
+        body: () => {
+          const items = [
+            { id: "general", name: "全能主控", tag: "默认主控", ic: IC.sparkles, desc: "全局目标拆解、多子智能体并行调度与最终交付质量把关。" },
+            { id: "coder", name: "软件工程师", tag: "工程研发", ic: IC.code, desc: "先读后改、根因定位、最小侵入式 Diff 与自动化单测验证。" },
+            { id: "analyst", name: "数据计量专家", tag: "实证建模", ic: IC.chart, desc: "持久化 Python 内核、PanelOLS 双向固定效应与出版级图表。" },
+            { id: "writer", name: "论文公文主笔", tag: "规范排版", ic: IC.academic, desc: "《财政研究》期刊体例与 GB/T 9704 党政机关公文双格式输出。" },
+            { id: "connector", name: "外部连接专家", tag: "跨端协同", ic: IC.plug, desc: "联动 SQLite、REST API、邮件日历、MCP 服务与业务网页。" },
+            { id: "researcher", name: "资料调研专家", tag: "只读检索", ic: IC.search, desc: "高速只读检索大型代码库、本地知识文档与网页参考资料。" },
+          ];
+          return `
+            <div class="panel-grid">
+              ${items.map((a) => `
+                <div class="panel-card clickable ${selectedAgent === a.id ? "selected" : ""}" data-pick-agent="${a.id}">
+                  <div class="pc-head">${a.ic}<span>${a.name}</span><span class="pc-code">${a.id}</span><span class="pc-tag ${selectedAgent === a.id ? "ok" : ""}">${selectedAgent === a.id ? "当前启用" : a.tag}</span></div>
+                  <div class="pc-desc">${a.desc}</div>
+                </div>`).join("")}
+            </div>
+            <div class="panel-foot-note">
+              <span>${IC.shield} 另含第 7 位独立审查员 <code>reviewer</code>（单测回归、文档规范打分与图表视觉自检）</span>
+              <button type="button" class="mini-btn" data-jump-scene="new">使用 ${selectedAgent} 发起任务</button>
+            </div>`;
+        }
+      },
+      connectors: {
+        showComposer: false,
+        header: () => `
+          <div class="app-header-left">${IC.plug}<b>外部系统接入中心</b> <span>/</span> <span>Connectors &amp; MCP Hub</span></div>
+          <span class="hdr-pill ok">${IC.check} 4 项连接已就绪</span>`,
+        body: () => `
+          <div class="panel-list">
+            <div class="panel-row">
+              <div class="pr-main">
+                <span class="pr-ic">${IC.globe}</span>
+                <div>
+                  <div class="pr-title">单位 OA 与财务报销网页端 <span class="pc-code">web_automation</span><span class="pc-tag ok">已就绪</span></div>
+                  <div class="pr-sub">驱动本机浏览器自动填单；遇登录页自动置前提示用户本人登录，绝不代填密码或绕过验证。</div>
+                </div>
+              </div>
+              <button type="button" class="mini-btn" data-test-conn="oa">测试连接</button>
+            </div>
+            <div class="panel-row">
+              <div class="pr-main">
+                <span class="pr-ic">${IC.database}</span>
+                <div>
+                  <div class="pr-title">财务台账 SQLite 数据库 <span class="pc-code">@connector:erp_db</span><span class="pc-tag ok">只读保护</span></div>
+                  <div class="pr-sub">采用 mode=ro 只读安全连接，自动探查表结构并支持 SQL 交叉核验。</div>
+                </div>
+              </div>
+              <button type="button" class="mini-btn" data-test-conn="db">测试连接</button>
+            </div>
+            <div class="panel-row">
+              <div class="pr-main">
+                <span class="pr-ic">${IC.mail}</span>
+                <div>
+                  <div class="pr-title">工作邮箱、日历与 MCP 协议服务 <span class="pc-code">@connector:mcp_suite</span><span class="pc-tag">标准协议</span></div>
+                  <div class="pr-sub">支持 IMAP/SMTP、CalDAV 日程与标准 JSON-RPC MCP 工具扩展，外发操作须经人工确认。</div>
+                </div>
+              </div>
+              <button type="button" class="mini-btn" data-test-conn="mcp">测试连接</button>
+            </div>
+          </div>
+          <div class="panel-foot-note">
+            <span>${IC.lock} 所有外部操作实时同步至工作台「操作」审计栏，不可逆提交均需你亲自确认</span>
+          </div>`
+      },
+      memory: {
+        showComposer: false,
+        header: () => `
+          <div class="app-header-left">${IC.brain}<b>记忆与用户画像中心</b> <span>/</span> <span>Memory &amp; Persona</span></div>
+          <span class="hdr-pill ok">${IC.check} 自动学习已开启</span>`,
+        body: () => `
+          <div class="mem-subtabs" role="tablist">
+            <button type="button" class="mem-subtab ${memorySubTab === "portrait" ? "active" : ""}" data-mem-tab="portrait">用户画像 (4)</button>
+            <button type="button" class="mem-subtab ${memorySubTab === "projects" ? "active" : ""}" data-mem-tab="projects">在办文稿 (2)</button>
+            <button type="button" class="mem-subtab ${memorySubTab === "memories" ? "active" : ""}" data-mem-tab="memories">长期记忆库 (12)</button>
+          </div>
+          ${renderMemoryContent()}
+          <div class="panel-foot-note">
+            <span>${IC.shield} 从日常纠错与定稿习惯自动提炼特征 · 仅加密保存在本机，可随时编辑或清空</span>
+          </div>`
+      },
+      settings: {
+        showComposer: false,
+        header: () => `
+          <div class="app-header-left">${IC.key}<b>偏好与模型密钥</b> <span>/</span> <span>本机加密存储</span></div>
+          <span class="hdr-pill">零明文上云</span>`,
+        body: () => `
+          <div class="panel-list">
+            <div class="panel-row">
+              <div class="pr-main">
+                <span class="pr-ic">${IC.key}</span>
+                <div>
+                  <div class="pr-title">DeepSeek / OpenAI / Qwen / Kimi / GLM / Claude <span class="pc-tag ok">已加密配置</span></div>
+                  <div class="pr-sub">API Key 采用本机对称密钥加密存储在本地数据库中，支持随时切换主力推理模型。</div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-row">
+              <div class="pr-main">
+                <span class="pr-ic">${IC.bolt}</span>
+                <div>
+                  <div class="pr-title">Smart 智能审批策略 <span class="pc-tag">默认推荐</span></div>
+                  <div class="pr-sub">只读检索与沙箱计算自动放行；高风险命令、文件覆盖与外部业务提交强制请求人工审批。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-foot-note">
+            <span>${IC.shield} 首次安装打开桌面端将自动引导完成模型密钥配置</span>
+          </div>`
+      },
+      cli: {
+        showComposer: false,
+        header: () => `
+          <div class="app-header-left">${IC.terminal}<b>OmniAgent CLI 终端模式</b> <span>/</span> <span>omni --agent coder</span></div>
+          <span class="hdr-pill">macOS &amp; Windows</span>`,
+        body: () => `
+          <div class="tool-trace" style="padding:12px 14px;gap:7px;">
+            <div class="trace-row">${IC.terminal}<code>$ omni --agent coder run "定位并修复 Windows 进程树残留并跑通单测"</code></div>
+            <div class="trace-row">${IC.search}<span>[researcher] 检索 <code>tools/shell.py</code> 与 <code>tests/test_windows_compat.py</code></span></div>
+            <div class="trace-row">${IC.diff}<span>[coder] 应用最小补丁：<code>taskkill /F /T</code> + UTF-8/GB18030 自适应解码</span></div>
+            <div class="trace-row">${IC.checkCircle}<span>[reviewer] pytest 全量验证通过：<code>110 passed in 41.2s</code></span></div>
+          </div>
+          <div class="panel-foot-note">
+            <span>${IC.code} 终端 CLI、Web 工作台与原生桌面端共享同一套智能体内核、技能包与记忆库</span>
+            <button type="button" class="mini-btn" data-jump-scene="code">切回对话视图</button>
+          </div>`
+      },
       code: {
-        header: `<b>omni-project</b> <span>/</span> <span>定位并修复 Windows 进程树残留与编码兼容问题</span>`,
-        body: `
+        showComposer: true,
+        placeholder: "输入任务目标，OmniAgent 将自主规划、执行并验证交付…",
+        header: () => `
+          <div class="app-header-left"><b>omni-project</b> <span>/</span> <span>定位并修复 Windows 进程树残留与编码兼容问题</span></div>`,
+        body: () => `
           <div class="user-msg">在 Windows 11 上运行后台开发服务超时后子进程未退出，且中文终端输出偶发乱码，请定位根因、修复并跑通全量测试。</div>
           <div class="agent-msg">已复现问题：Windows 下不存在 <code>signal.SIGKILL</code>，且顶层 <code>cmd.exe</code> 终止后未连带清理子进程树。正在切换为 <code>taskkill /F /T</code> 并补充 UTF-8 / GB18030 自适应解码。</div>
           <div class="tool-trace">
-            <span>🔎 Read 4 files · inspected <code>tools/shell.py</code>, <code>verification.py</code></span>
-            <span>🧪 Ran pytest · <code>110 passed in 41.2s</code></span>
+            <div class="trace-row">${IC.search}<span>Read 4 files · inspected <code>tools/shell.py</code>, <code>verification.py</code></span></div>
+            <div class="trace-row">${IC.terminal}<span>Ran pytest · <code>110 passed in 41.2s</code></span></div>
           </div>
           <div class="diff-pill">
-            <span>📄 4 files changed</span>
+            ${IC.diff}
+            <span>4 files changed</span>
             <span class="add">+68</span>
             <span class="del">-14</span>
             <span class="link-accent">[Review Diff]</span>
           </div>`
       },
       paper: {
-        header: `<b>fiscal-study</b> <span>/</span> <span>双向固定效应 DID 回归与《财政研究》双格式论文输出</span>`,
-        body: `
+        showComposer: true,
+        placeholder: "继续追问或要求补充稳健性检验、安慰剂检验与政策建议章节…",
+        header: () => `
+          <div class="app-header-left"><b>fiscal-study</b> <span>/</span> <span>双向固定效应 DID 回归与《财政研究》双格式论文输出</span></div>`,
+        body: () => `
           <div class="user-msg">基于面板数据做双向固定效应回归与平行趋势检验，生成符合《财政研究》体例的三线表与完整实证论文（Word + PDF）。</div>
           <div class="agent-msg">已完成面板清洗与聚类稳健标准误估计，<code>view_image</code> 视觉核验平行趋势图无文字遮挡，正在导出三线表及双格式文稿。</div>
           <div class="tool-trace">
-            <span>🐍 Python Kernel · <code>PanelOLS (EntityEffects + TimeEffects, N=3,360)</code></span>
-            <span>🧐 check_document · 结构与图表规范评分 <code>98/100</code></span>
+            <div class="trace-row">${IC.cpu}<span>Python Kernel · <code>PanelOLS (EntityEffects + TimeEffects, N=3,360)</code></span></div>
+            <div class="trace-row">${IC.shield}<span>check_document · 结构与图表规范评分 <code>98/100</code></span></div>
           </div>
           <div class="diff-pill">
-            <span>📦 已生成交付物</span>
+            ${IC.box}
+            <span>已生成交付物</span>
             <span class="add">outputs/论文定稿.docx</span>
             <span class="link-accent">outputs/论文定稿.pdf</span>
           </div>`
       },
       expense: {
-        header: `<b>reimbursement</b> <span>/</span> <span>11月差旅票据离线 OCR 核验与报销系统自动填报</span>`,
-        body: `
+        showComposer: true,
+        placeholder: "确认无误后可指令提交报销单，或补充手工调整项…",
+        header: () => `
+          <div class="app-header-left"><b>reimbursement</b> <span>/</span> <span>11月差旅票据离线 OCR 核验与报销系统自动填报</span></div>`,
+        body: () => `
           <div class="user-msg">核对桌面“11月报销”文件夹里的全电发票、高铁票和打车行程单，生成报销单与审核报告，并填入单位 OA 系统草稿。</div>
           <div class="agent-msg">已离线识别 9 份票据（价税合计 ¥2,841.00，核对零差额，剔除重复附件 1 份）。检测到 OA 系统需登录，请在弹出的浏览器窗口亲自完成登录。</div>
           <div class="tool-trace">
-            <span>🧾 expense_reimburse · 生成 <code>报销单.xlsx</code> + <code>审核报告.docx</code></span>
-            <span>🔐 web_automation · 已暂停等待用户本人登录，最终提交前将请求确认</span>
+            <div class="trace-row">${IC.receipt}<span>expense_reimburse · 生成 <code>报销单.xlsx</code> + <code>审核报告.docx</code></span></div>
+            <div class="trace-row">${IC.lock}<span>web_automation · 已暂停等待用户本人登录，最终提交前将请求确认</span></div>
           </div>
           <div class="diff-pill">
-            <span>✅ 金额核对一致</span>
+            ${IC.checkCircle}
+            <span>金额核对一致</span>
             <span class="add">¥2,841.00</span>
             <span style="color:var(--amber);">可抵扣税额 ¥104.82</span>
           </div>`
       }
     };
 
-    document.querySelectorAll("#demo-tabs .sb-item").forEach((el) => {
-      el.addEventListener("click", () => {
-        document.querySelectorAll("#demo-tabs .sb-item").forEach((x) => x.classList.remove("active"));
-        el.classList.add("active");
-        const s = SCENES[el.dataset.scene];
-        if (s) {
-          document.getElementById("scene-header").innerHTML = s.header;
-          document.getElementById("scene-body").innerHTML = s.body;
+    let currentScene = "code";
+    const headerEl = document.getElementById("scene-header");
+    const bodyEl = document.getElementById("scene-body");
+    const composerEl = document.getElementById("scene-composer");
+    const placeholderEl = document.getElementById("composer-placeholder");
+
+    function switchScene(sceneKey) {
+      const s = SCENES[sceneKey];
+      if (!s) return;
+      currentScene = sceneKey;
+
+      document.querySelectorAll("#sidebar-nav [data-scene]").forEach((el) => {
+        el.classList.toggle("active", el.dataset.scene === sceneKey);
+      });
+      document.querySelectorAll(".win-mode-pills button").forEach((btn) => {
+        btn.classList.toggle("on", sceneKey === "cli" ? btn.dataset.mode === "cli" : btn.dataset.mode === "workbench");
+      });
+
+      headerEl.innerHTML = s.header();
+      bodyEl.innerHTML = s.body();
+      composerEl.hidden = !s.showComposer;
+      if (s.placeholder) placeholderEl.textContent = s.placeholder;
+    }
+
+    /* Bind all sidebar items (upper nav + demo scenarios + settings gear) */
+    document.querySelectorAll("#sidebar-nav [data-scene]").forEach((el) => {
+      el.addEventListener("click", () => switchScene(el.dataset.scene));
+    });
+
+    /* Top-right Workbench / CLI mode pills */
+    document.querySelectorAll(".win-mode-pills button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (btn.dataset.mode === "cli") {
+          switchScene("cli");
+        } else if (currentScene === "cli") {
+          switchScene("code");
         }
       });
     });
+
+    /* Delegate interactive clicks inside dynamically rendered panel views */
+    bodyEl.addEventListener("click", (e) => {
+      const jump = e.target.closest("[data-jump-scene]");
+      if (jump) {
+        switchScene(jump.dataset.jumpScene);
+        return;
+      }
+      const pick = e.target.closest("[data-pick-agent]");
+      if (pick) {
+        selectedAgent = pick.dataset.pickAgent;
+        switchScene("agents");
+        return;
+      }
+      const memTab = e.target.closest("[data-mem-tab]");
+      if (memTab) {
+        memorySubTab = memTab.dataset.memTab;
+        switchScene("memory");
+        return;
+      }
+      const testBtn = e.target.closest("[data-test-conn]");
+      if (testBtn) {
+        testBtn.innerHTML = `${IC.check} 连通正常 (11ms)`;
+        testBtn.style.borderColor = "rgba(63, 185, 80, 0.45)";
+        testBtn.style.color = "var(--green)";
+      }
+    });
+
+    /* Initial render */
+    switchScene("code");
   </script>
 </body>
 </html>
