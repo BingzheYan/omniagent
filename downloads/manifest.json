@@ -5,25 +5,25 @@
     "macos_dmg": {
       "filename": "OmniAgent-v0.2.0-macOS-Universal.dmg",
       "url": "./downloads/OmniAgent-v0.2.0-macOS-Universal.dmg",
-      "size_bytes": 3186239,
-      "size_human": "3.04 MB",
-      "sha256": "939f7fe3e7dcb22ce34d65c6063f353993e360a28bbe3418a3f136f951ea282b",
+      "size_bytes": 3139461,
+      "size_human": "2.99 MB",
+      "sha256": "baf839316655f42b5338bcd11c69301c0352e8b3360a3312e4d0442bdd752821",
       "platform": "macOS 12+ (Apple Silicon & Intel Universal)"
     },
     "macos_zip": {
       "filename": "OmniAgent-v0.2.0-macOS-Universal.zip",
       "url": "./downloads/OmniAgent-v0.2.0-macOS-Universal.zip",
-      "size_bytes": 2864423,
-      "size_human": "2.73 MB",
-      "sha256": "a2f7b90ec1592fd7495c242f6ad6646ddd5b91cdcde1b40f18030d2e3b099e5d",
+      "size_bytes": 2871294,
+      "size_human": "2.74 MB",
+      "sha256": "042c92ead205e01649f1e87c2abd094c8371a733fde862a3b93fe996cb376dcd",
       "platform": "macOS 12+ (ZIP Archive)"
     },
     "windows_zip": {
       "filename": "OmniAgent-v0.2.0-Windows-x64.zip",
       "url": "./downloads/OmniAgent-v0.2.0-Windows-x64.zip",
-      "size_bytes": 2824291,
-      "size_human": "2.69 MB",
-      "sha256": "7349f9689091bbbcf8b9bb1b2ff4cc7d3b586e566ae6b5d8ae8c295f98e9d140",
+      "size_bytes": 2826379,
+      "size_human": "2.70 MB",
+      "sha256": "7c35728f0debf2f19c44d327583f78bbeea74fe3f3187ee91c539dc6a81cd5d4",
       "platform": "Windows 10 / 11 (64-bit)"
     }
   }
