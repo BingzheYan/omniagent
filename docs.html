@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OmniAgent 使用文档 · 安装、配置与全能力指南</title>
+  <style>
+    :root {
+      --bg: #0e0e10;
+      --bg-elev: #151519;
+      --bg-card: #19191e;
+      --border: rgba(255, 255, 255, 0.09);
+      --text: #f4f3ef;
+      --text-soft: #bdbab3;
+      --text-muted: #84817a;
+      --accent: #d97757;
+      --serif: "Iowan Old Style", Georgia, "Songti SC", serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --mono: "SF Mono", Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.72; }
+    a { color: #f09a7e; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(14, 14, 16, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner {
+      max-width: 1120px; margin: 0 auto; height: 60px; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { font-family: var(--serif); font-size: 20px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .btn-dl {
+      background: var(--text); color: #111; padding: 6px 14px; border-radius: 8px;
+      font-size: 13px; font-weight: 600; text-decoration: none !important;
+    }
+    .layout {
+      max-width: 1120px; margin: 0 auto; padding: 44px 28px 90px;
+      display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px;
+    }
+    .toc {
+      position: sticky; top: 88px; align-self: start;
+      display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;
+    }
+    .toc a { color: var(--text-muted); padding: 4px 0; }
+    .toc a:hover { color: var(--text); text-decoration: none; }
+    .doc h1 { font-family: var(--serif); font-size: 38px; font-weight: 500; margin-bottom: 12px; }
+    .doc .lead { font-size: 17px; color: var(--text-soft); margin-bottom: 36px; }
+    .doc h2 { font-size: 22px; margin: 40px 0 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .doc h3 { font-size: 16.5px; margin: 22px 0 8px; color: #fff; }
+    .doc p, .doc li { color: var(--text-soft); font-size: 14.8px; }
+    .doc ul, .doc ol { padding-left: 22px; margin: 10px 0 16px; display: flex; flex-direction: column; gap: 6px; }
+    code {
+      font-family: var(--mono); font-size: 12.8px; background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px; border-radius: 5px; color: #fff;
+    }
+    pre {
+      background: var(--bg-elev); border: 1px solid var(--border); border-radius: 11px;
+      padding: 16px 18px; overflow-x: auto; margin: 12px 0 20px; font-family: var(--mono); font-size: 13px; color: #e6e4df;
+    }
+    pre code { background: none; padding: 0; }
+    .callout {
+      background: rgba(217, 119, 87, 0.1); border: 1px solid rgba(217, 119, 87, 0.35);
+      border-radius: 11px; padding: 14px 18px; margin: 16px 0; font-size: 14px; color: var(--text);
+    }
+    @media (max-width: 820px) {
+      .layout { grid-template-columns: 1fr; }
+      .toc { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="./" class="brand">✦ OmniAgent Docs</a>
+      <a href="./#downloads" class="btn-dl">返回下载页</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="toc">
+      <a href="#windows">Windows 安装与启动</a>
+      <a href="#macos">macOS 安装与启动</a>
+      <a href="#apikey">配置模型 API Key</a>
+      <a href="#modes">三种客户端形态</a>
+      <a href="#agents">7 大专业智能体</a>
+      <a href="#connectors">外部软件与业务自动化</a>
+    </nav>
+
+    <article class="doc">
+      <h1>OmniAgent 快速上手指南</h1>
+      <p class="lead">支持 Windows 10/11 与 macOS 12+ 开箱即用：自动完成 Python 虚拟环境隔离配置，保护你的 API 密钥安全。</p>
+
+      <h2 id="windows">1. Windows 电脑安装与启动</h2>
+      <ol>
+        <li>从官网下载 <a href="./downloads/OmniAgent-v0.2.0-Windows-x64.zip" download><code>OmniAgent-v0.2.0-Windows-x64.zip</code></a>；</li>
+        <li>右键点击压缩包，选择<strong>「全部解压缩」</strong>到桌面或任意目录（请先解压到文件夹后再运行，勿直接在压缩包预览窗口内双击）；</li>
+        <li>打开解压后的 <code>OmniAgent</code> 文件夹，直接双击 <strong><code>启动桌面端.bat</code></strong>：
+          <ul>
+            <li>若电脑尚未安装 Python 3.10+，脚本会自动下载并静默安装官方 Python 3.12（用户级安装，无需管理员权限）；</li>
+            <li>自动创建独立的 <code>.venv</code> 虚拟环境并从国内高速镜像安装全部依赖（首次约 1–2 分钟）；</li>
+            <li>后续每次日常使用可双击 <strong><code>启动桌面端(无黑框).vbs</code></strong>，无黑色命令行窗口直接打开深色桌面工作台；也可运行 <code>环境安装与自检.bat</code> 在桌面生成快捷方式。</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h2 id="macos">2. macOS 电脑安装与启动</h2>
+      <ol>
+        <li>下载 <a href="./downloads/OmniAgent-v0.2.0-macOS-Universal.dmg" download><code>OmniAgent-v0.2.0-macOS-Universal.dmg</code></a> 并双击打开；</li>
+        <li>将 <code>OmniAgent</code> 文件夹拖入 <code>Applications（应用程序）</code> 或桌面；</li>
+        <li>进入 <code>OmniAgent</code> 文件夹，双击 <strong><code>启动桌面端.command</code></strong> 或 <strong><code>OmniAgent.app</code></strong>（首次若提示“无法验证开发者”，右键点击 <code>启动桌面端.command</code> 选择「打开」即可自动解除隔离并配好环境）。</li>
+      </ol>
+
+      <h2 id="apikey">3. 配置模型 API Key</h2>
+      <div class="callout">
+        🔑 首次启动进入工作台时，系统会自动弹出<strong>「设置 → 模型密钥」</strong>面板。你的 API Key 采用本机对称密钥加密存储，仅保存在你自己的电脑上。
+      </div>
+      <ul>
+        <li><strong>图形界面配置（推荐）</strong>：点击左下角头像 →「偏好与模型密钥」→「模型密钥」，在 <code>deepseek</code>（或 <code>openai</code> / <code>qwen</code> / <code>kimi</code> / <code>glm</code> / <code>claude</code>）右侧点击「设置」，填入你的 <code>sk-...</code> 保存即可立即对话。</li>
+        <li><strong>配置文件方式</strong>：也可编辑文件夹根目录下的 <code>.env</code> 文件（例如写入 <code>DEEPSEEK_API_KEY=sk-xxx</code>）。</li>
+      </ul>
+
+      <h2 id="modes">4. 三种客户端形态</h2>
+      <ul>
+        <li><strong>桌面端（Desktop）</strong>：Windows 双击 <code>启动桌面端.bat</code> / macOS 双击 <code>OmniAgent.app</code>，自动分配本地端口并免密登录独立深色窗口。</li>
+        <li><strong>Web 工作台（Workbench）</strong>：Windows 双击 <code>启动Web工作台.bat</code> / macOS 双击 <code>启动Web工作台.command</code>，支持多用户账号、分享链接与管理后台。</li>
+        <li><strong>命令行终端（CLI）</strong>：双击 <code>启动命令行CLI</code>，或在虚拟环境中执行：</li>
+      </ul>
+      <pre><code>omni                                  # 交互式智能体终端
+omni --agent coder run "修复测试报错"   # 指定工程师智能体自动执行任务
+omni agents                           # 查看全部智能体与子智能体
+omni skills                           # 查看内置专业技能包</code></pre>
+
+      <h2 id="agents">5. 内置 7 大专业智能体</h2>
+      <ul>
+        <li><code>general</code>（全能主控）：任务拆解、并行委派多个子智能体与整体交付核验；</li>
+        <li><code>coder</code>（软件工程师）：复现 → 根因定位 → 最小改动 → 回归测试；</li>
+        <li><code>researcher</code>（调研专家）：高速只读检索代码库、文档与网页资料；</li>
+        <li><code>analyst</code>（数据与计量分析师）：持久化 Python 内核、面板固定效应 PanelOLS/DID 与出版级图表；</li>
+        <li><code>writer</code>（论文与公文主笔）：《财政研究》等期刊论文、GB/T 9704 党政机关公文排版；</li>
+        <li><code>connector</code>（外部连接专家）：REST/GraphQL、SQLite、邮件日历、MCP 与业务网页提取；</li>
+        <li><code>reviewer</code>（质量审查员）：独立单测、<code>check_document</code> 规范打分与 <code>view_image</code> 图表视觉自检。</li>
+      </ul>
+
+      <h2 id="connectors">6. 外部业务系统与安全机制</h2>
+      <p>当智能体通过 <code>web_automation</code> 操作需要登录的报销、OA、ERP、招聘等网页系统时，遇到登录页会在对话中弹出<strong>「🔐 需要你登录」</strong>卡片并置前浏览器窗口，由你本人完成账号/扫码/验证码登录（绝不代填密码或绕过验证）；任何最终提交、外发邮件等不可逆操作均需你确认后才会执行。</p>
+    </article>
+  </div>
+</body>
+</html>
