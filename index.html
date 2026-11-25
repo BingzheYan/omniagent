@@ -375,6 +375,10 @@
       gap: 52px;
       align-items: center;
     }
+    .hero > * {
+      min-width: 0;
+      max-width: 100%;
+    }
     .hero-title {
       font-family: var(--serif);
       font-size: clamp(46px, 5.2vw, 66px);
@@ -453,16 +457,40 @@
     }
 
     /* Interactive App Preview Window (Right Column) */
-    .app-window {
+    .app-preview-wrap {
+      min-width: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+    .app-window-scroll {
+      width: 100%;
+      max-width: 100%;
       background: var(--win-bg);
       border: 1px solid var(--win-border);
       border-radius: 16px;
       box-shadow: var(--win-shadow);
       overflow: hidden;
+    }
+    .app-window {
+      background: var(--win-bg);
       display: grid;
       grid-template-columns: 236px minmax(0, 1fr);
       min-height: 488px;
       color: var(--win-text);
+    }
+    .mobile-scroll-hint {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 9px;
+      font-size: 12px;
+      color: var(--text-muted);
+      user-select: none;
+    }
+    .mobile-scroll-hint svg {
+      flex-shrink: 0;
+      color: var(--text-soft);
     }
     .app-sidebar {
       background: var(--win-sb);
@@ -1342,13 +1370,32 @@
         padding: 7px 16px;
       }
       .hero {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         padding: 36px 20px 44px;
         gap: 32px;
       }
+      .app-window-scroll {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        touch-action: pan-x pan-y;
+      }
+      .app-window-scroll::-webkit-scrollbar {
+        height: 5px;
+      }
+      .app-window-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .app-window-scroll::-webkit-scrollbar-thumb {
+        background: var(--border-strong);
+        border-radius: 99px;
+      }
       .app-window {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         min-height: 0;
+        width: max(100%, 740px);
+        min-width: 740px;
       }
       .app-sidebar {
         display: none;
@@ -1356,12 +1403,12 @@
       .mobile-scene-bar {
         display: flex;
       }
-      .panel-grid {
-        grid-template-columns: 1fr;
+      .mobile-scene-pills {
+        overflow-x: visible;
       }
       .dl-cards,
       .feat-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
       }
       .ways-section,
       .downloads-sec,
@@ -1419,11 +1466,14 @@
         font-size: 12.5px;
         margin-top: 12px;
       }
-      .app-window {
+      .app-window-scroll {
         border-radius: 14px;
       }
+      .mobile-scroll-hint {
+        display: flex;
+      }
       .app-main {
-        padding: 14px 14px 15px;
+        padding: 15px 18px 16px;
       }
       .app-header {
         font-size: 12.5px;
@@ -1433,23 +1483,6 @@
         padding: 13px 0;
         gap: 10px;
         font-size: 13px;
-      }
-      .panel-row {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 9px;
-      }
-      .panel-row .mini-btn {
-        align-self: flex-start;
-      }
-      .panel-foot-note {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-      }
-      .panel-foot-note span {
-        flex: none;
-        width: 100%;
       }
       .ways-section {
         padding: 0 16px;
@@ -1669,7 +1702,9 @@
     </div>
 
     <!-- Interactive Workbench Window Preview -->
-    <div class="app-window" aria-label="OmniAgent 工作台交互预览">
+    <div class="app-preview-wrap">
+      <div class="app-window-scroll" id="app-window-scroll">
+        <div class="app-window" aria-label="OmniAgent 工作台交互预览">
       <aside class="app-sidebar" id="sidebar-nav">
         <div>
           <div class="win-top">
@@ -1831,6 +1866,12 @@
           </div>
         </div>
       </main>
+        </div>
+      </div>
+      <div class="mobile-scroll-hint" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 8 3 12 7 16"/><polyline points="17 8 21 12 17 16"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+        <span>左右滑动查看完整工作台界面</span>
+      </div>
     </div>
   </section>
 
@@ -2470,13 +2511,7 @@
       currentScene = sceneKey;
 
       document.querySelectorAll("#sidebar-nav [data-scene], #mobile-scene-bar [data-scene]").forEach((el) => {
-        const isActive = el.dataset.scene === sceneKey;
-        el.classList.toggle("active", isActive);
-        if (isActive && el.classList.contains("m-scene-pill")) {
-          try {
-            el.scrollIntoView({ behavior: "smooth", inline: "nearest", block: "nearest" });
-          } catch {}
-        }
+        el.classList.toggle("active", el.dataset.scene === sceneKey);
       });
       document.querySelectorAll(".win-mode-pills button").forEach((btn) => {
         btn.classList.toggle("on", sceneKey === "cli" ? btn.dataset.mode === "cli" : btn.dataset.mode === "workbench");
