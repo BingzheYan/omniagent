@@ -143,10 +143,14 @@
       color: var(--text);
       font-family: var(--sans);
       -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+      overflow-x: clip;
       transition: background-color 0.22s ease, color 0.22s ease;
     }
     body {
       min-height: 100vh;
+      max-width: 100%;
+      overflow-x: clip;
       background:
         radial-gradient(ellipse 70% 45% at 68% 28%, var(--bg-glow-1), transparent 70%),
         radial-gradient(ellipse 55% 40% at 25% 15%, var(--bg-glow-2), transparent 65%),
@@ -154,6 +158,9 @@
       color: var(--text);
       line-height: 1.6;
       transition: background-color 0.22s ease, color 0.22s ease;
+    }
+    section[id] {
+      scroll-margin-top: 76px;
     }
     a { color: inherit; text-decoration: none; }
 
@@ -262,6 +269,73 @@
       transition: opacity 0.18s, background 0.18s;
     }
     .btn-nav-solid:hover { background: var(--cta-bg-hover); }
+    .mobile-menu-btn {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: var(--sec-btn-bg);
+      color: var(--text);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.18s ease, border-color 0.18s ease;
+    }
+    .mobile-menu-btn:hover { background: var(--sec-btn-hover); }
+
+    /* Mobile Slide-Down Drawer (ChatGPT / Claude / Gemini Style) */
+    .mobile-drawer {
+      display: none;
+      border-top: 1px solid var(--border);
+      background: var(--bg-elev);
+      padding: 10px 16px 16px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    }
+    .mobile-drawer[hidden] { display: none !important; }
+    .mobile-drawer-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-drawer-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 12px;
+      border-radius: 11px;
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--text);
+      transition: background 0.16s ease;
+    }
+    .mobile-drawer-link:hover,
+    .mobile-drawer-link:active {
+      background: var(--code-bg);
+    }
+    .mobile-drawer-link-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+    }
+    .mobile-drawer-ic {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: var(--way-icon-bg);
+      color: var(--badge-text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .mobile-drawer-arrow {
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
 
     /* Sub-header Breadcrumb */
     .subbar {
@@ -271,11 +345,13 @@
     .subbar-inner {
       max-width: 1280px;
       margin: 0 auto;
-      height: 42px;
-      padding: 0 32px;
+      min-height: 42px;
+      padding: 8px 32px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px 16px;
       font-size: 12.5px;
       color: var(--text-muted);
     }
@@ -284,6 +360,7 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
+      white-space: nowrap;
       transition: color 0.15s ease;
     }
     .subbar-link:hover { color: var(--text); }
@@ -507,6 +584,80 @@
       color: var(--win-text);
     }
 
+    /* Mobile Horizontal Scenario Strip inside App Window (hidden on Desktop) */
+    .mobile-scene-bar {
+      display: none;
+      background: var(--win-sb);
+      border-bottom: 1px solid var(--border);
+      padding: 11px 14px 10px;
+      flex-direction: column;
+      gap: 10px;
+      user-select: none;
+    }
+    .mobile-win-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .mobile-win-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--win-soft);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mobile-win-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .mobile-scene-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 2px;
+    }
+    .mobile-scene-pills::-webkit-scrollbar { display: none; }
+    .m-scene-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      height: 31px;
+      padding: 0 11px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: var(--steps-bg);
+      color: var(--win-soft);
+      font-size: 12px;
+      font-family: var(--sans);
+      font-weight: 500;
+      white-space: nowrap;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .m-scene-pill svg {
+      width: 13.5px;
+      height: 13.5px;
+      color: var(--win-muted);
+      flex-shrink: 0;
+    }
+    .m-scene-pill.active {
+      background: var(--badge-bg);
+      border-color: var(--badge-border);
+      color: var(--badge-text);
+      font-weight: 600;
+    }
+    .m-scene-pill.active svg { color: var(--badge-text); }
+
     /* App Main Area */
     .app-main {
       padding: 18px 22px 18px;
@@ -522,16 +673,18 @@
       padding-bottom: 13px;
       border-bottom: 1px solid var(--border);
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 8px;
+      gap: 8px 12px;
       flex-wrap: wrap;
     }
     .app-header-left {
-      display: inline-flex;
+      display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 6px;
+      gap: 4px 6px;
       min-width: 0;
+      line-height: 1.45;
     }
     .app-header b { color: var(--win-text); font-weight: 600; }
     .hdr-pill {
@@ -568,10 +721,17 @@
       color: var(--blue-text);
       padding: 11px 15px;
       border-radius: 11px;
-      max-width: 94%;
+      max-width: 100%;
       font-size: 13px;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
-    .agent-msg { color: var(--win-soft); font-size: 13.1px; }
+    .agent-msg {
+      color: var(--win-soft);
+      font-size: 13.1px;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
     .agent-msg code {
       font-family: var(--mono);
       font-size: 12px;
@@ -579,33 +739,53 @@
       padding: 2px 6px;
       border-radius: 5px;
       color: var(--code-text);
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
     .tool-trace {
       font-size: 12px;
       color: var(--win-muted);
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      padding: 8px 12px;
+      gap: 6px;
+      padding: 9px 12px;
       border-left: 2px solid var(--trace-border);
       background: var(--steps-bg);
       border-radius: 0 7px 7px 0;
+      min-width: 0;
+      max-width: 100%;
     }
     .trace-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 7px;
+      min-width: 0;
+      line-height: 1.5;
     }
-    .trace-row .ui-ic { color: var(--badge-text); width: 14px; height: 14px; }
+    .trace-row .ui-ic {
+      color: var(--badge-text);
+      width: 14px;
+      height: 14px;
+      margin-top: 2.5px;
+      flex-shrink: 0;
+    }
+    .trace-row > span,
+    .trace-row > code {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
     .tool-trace code {
       font-family: var(--mono);
       color: var(--win-text);
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
     .diff-pill {
       display: inline-flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px 8px;
       font-family: var(--mono);
       font-size: 11.5px;
       padding: 6px 11px;
@@ -614,6 +794,8 @@
       border: 1px solid var(--border);
       color: var(--win-text);
       width: fit-content;
+      max-width: 100%;
+      overflow-wrap: anywhere;
     }
     .diff-pill .ui-ic { width: 14px; height: 14px; color: var(--badge-text); }
     .diff-pill .add { color: var(--green); font-weight: 600; }
@@ -648,12 +830,18 @@
     .pc-head {
       display: flex;
       align-items: center;
-      gap: 7px;
+      flex-wrap: wrap;
+      gap: 5px 7px;
       font-size: 12.5px;
       font-weight: 600;
       color: var(--win-text);
+      min-width: 0;
     }
-    .pc-head .ui-ic { color: var(--badge-text); width: 14px; height: 14px; }
+    .pc-head > span:first-of-type {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    .pc-head .ui-ic { color: var(--badge-text); width: 14px; height: 14px; flex-shrink: 0; }
     .pc-code {
       font-family: var(--mono);
       font-size: 10.5px;
@@ -749,14 +937,18 @@
     .mini-btn:hover { background: var(--sec-btn-hover); }
 
     .mem-subtabs {
-      display: inline-flex;
+      display: flex;
       gap: 4px;
       background: var(--steps-bg);
       border: 1px solid var(--border);
       padding: 3px;
       border-radius: 8px;
       width: fit-content;
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
     }
+    .mem-subtabs::-webkit-scrollbar { display: none; }
     .mem-subtab {
       border: none;
       background: transparent;
@@ -766,6 +958,8 @@
       border-radius: 5px;
       cursor: pointer;
       font-family: var(--sans);
+      white-space: nowrap;
+      flex-shrink: 0;
       transition: background 0.15s, color 0.15s;
     }
     .mem-subtab.active {
@@ -778,7 +972,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      flex-wrap: wrap;
+      gap: 8px 10px;
       padding: 9px 12px;
       border-radius: 9px;
       background: var(--win-composer);
@@ -788,9 +983,13 @@
     }
     .panel-foot-note span {
       display: inline-flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 6px;
+      min-width: 0;
+      flex: 1 1 200px;
+      line-height: 1.45;
     }
+    .panel-foot-note span .ui-ic { margin-top: 2px; }
 
     .composer-mock {
       border: 1px solid var(--border-strong);
@@ -805,14 +1004,26 @@
     .composer-top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
+      gap: 10px;
       font-size: 12.5px;
       color: var(--win-muted);
+    }
+    .composer-top > span {
+      min-width: 0;
+      flex: 1;
+      line-height: 1.45;
+    }
+    .composer-top > svg {
+      flex-shrink: 0;
+      margin-top: 2px;
     }
     .composer-foot {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 6px 12px;
       font-size: 11.5px;
       color: var(--win-muted);
     }
@@ -851,13 +1062,13 @@
       margin-bottom: 20px;
     }
     .ways-grid {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 148px));
       justify-content: center;
-      flex-wrap: wrap;
       gap: 14px;
     }
     .way-tile {
-      width: 136px;
+      width: 100%;
       padding: 16px 10px 13px;
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -974,6 +1185,8 @@
       background: var(--code-bg);
       padding: 1.5px 6px;
       border-radius: 4px;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
     .dl-btn-row {
       display: flex;
@@ -1015,10 +1228,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px 12px;
       font-size: 12px;
       color: var(--text-muted);
       font-family: var(--mono);
-      padding-top: 4px;
+      padding-top: 8px;
     }
     .copy-sha {
       background: none;
@@ -1027,7 +1242,16 @@
       font-family: var(--mono);
       font-size: 11.5px;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
       text-decoration: underline dotted;
+      flex-shrink: 0;
+    }
+    .copy-sha svg {
+      width: 12.5px;
+      height: 12.5px;
+      flex-shrink: 0;
     }
     .copy-sha:hover { color: var(--text); }
 
@@ -1078,11 +1302,254 @@
     }
 
     @media (max-width: 980px) {
-      .hero { grid-template-columns: 1fr; padding-top: 40px; }
-      .app-window { grid-template-columns: 1fr; }
-      .panel-grid { grid-template-columns: 1fr; }
-      .dl-cards, .feat-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
+      .topbar-inner {
+        height: 56px;
+        padding: 0 16px;
+        gap: 10px;
+      }
+      .nav-links,
+      .btn-nav-outline,
+      #theme-label {
+        display: none;
+      }
+      .nav-actions {
+        gap: 8px;
+      }
+      .theme-toggle {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 10px;
+      }
+      .btn-nav-solid {
+        height: 36px;
+        padding: 0 13px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 99px;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+      .mobile-menu-btn {
+        display: inline-flex;
+      }
+      .mobile-drawer {
+        display: block;
+      }
+      .subbar-inner {
+        padding: 7px 16px;
+      }
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 36px 20px 44px;
+        gap: 32px;
+      }
+      .app-window {
+        grid-template-columns: 1fr;
+        min-height: 0;
+      }
+      .app-sidebar {
+        display: none;
+      }
+      .mobile-scene-bar {
+        display: flex;
+      }
+      .panel-grid {
+        grid-template-columns: 1fr;
+      }
+      .dl-cards,
+      .feat-grid {
+        grid-template-columns: 1fr;
+      }
+      .ways-section,
+      .downloads-sec,
+      .features-sec {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .brand {
+        font-size: 19px;
+        gap: 8px;
+      }
+      .brand-mark {
+        width: 20px;
+        height: 20px;
+      }
+      .subbar-inner {
+        min-height: 38px;
+        padding: 6px 16px;
+        font-size: 12px;
+      }
+      .subbar-prefix {
+        display: none;
+      }
+      .hero {
+        padding: 26px 16px 34px;
+        gap: 24px;
+      }
+      .hero-title {
+        font-size: clamp(36px, 10vw, 46px);
+        margin-bottom: 14px;
+      }
+      .hero-desc {
+        font-size: 15.5px;
+        line-height: 1.65;
+        margin-bottom: 22px;
+      }
+      .cta-stack {
+        max-width: 100%;
+        width: 100%;
+        gap: 10px;
+      }
+      .btn-primary-dl,
+      .btn-secondary-doc {
+        width: 100%;
+        height: 48px;
+        padding: 0 18px;
+        border-radius: 12px;
+        font-size: 15px;
+      }
+      .avail-note {
+        font-size: 12.5px;
+        margin-top: 12px;
+      }
+      .app-window {
+        border-radius: 14px;
+      }
+      .app-main {
+        padding: 14px 14px 15px;
+      }
+      .app-header {
+        font-size: 12.5px;
+        padding-bottom: 11px;
+      }
+      .chat-body {
+        padding: 13px 0;
+        gap: 10px;
+        font-size: 13px;
+      }
+      .panel-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 9px;
+      }
+      .panel-row .mini-btn {
+        align-self: flex-start;
+      }
+      .panel-foot-note {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .panel-foot-note span {
+        flex: none;
+        width: 100%;
+      }
+      .ways-section {
+        padding: 0 16px;
+        margin: 6px auto 44px;
+      }
+      .ways-label {
+        margin-bottom: 14px;
+        font-size: 13px;
+      }
+      .ways-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .way-tile {
+        padding: 14px 10px 12px;
+        border-radius: 13px;
+      }
+      .downloads-sec {
+        padding: 38px 16px 0;
+        margin: 0 auto 54px;
+      }
+      .sec-head {
+        margin-bottom: 24px;
+      }
+      .sec-head h2 {
+        font-size: clamp(24px, 6.8vw, 30px);
+        line-height: 1.25;
+        margin-bottom: 8px;
+      }
+      .sec-head p {
+        font-size: 13.8px;
+        line-height: 1.55;
+      }
+      .dl-cards {
+        gap: 16px;
+      }
+      .dl-card {
+        padding: 20px 16px;
+        border-radius: 16px;
+        gap: 18px;
+      }
+      .os-title {
+        font-size: 18.5px;
+        gap: 8px;
+      }
+      .os-sub {
+        font-size: 13px;
+        line-height: 1.55;
+      }
+      .steps-list {
+        padding: 13px 14px;
+        font-size: 13px;
+        line-height: 1.6;
+        gap: 8px;
+      }
+      .dl-btn-row {
+        flex-direction: column;
+        gap: 9px;
+      }
+      .dl-btn-main,
+      .dl-btn-alt {
+        width: 100%;
+        min-width: 0;
+        flex: none;
+        height: 46px;
+        border-radius: 11px;
+        font-size: 14px;
+      }
+      .meta-line {
+        font-size: 11.5px;
+        gap: 6px 10px;
+      }
+      .features-sec {
+        padding: 0 16px;
+        margin: 0 auto 56px;
+      }
+      .feat-grid {
+        gap: 12px;
+      }
+      .feat-card {
+        padding: 18px 16px;
+      }
+      footer {
+        padding: 24px 16px;
+        font-size: 12.5px;
+        line-height: 1.7;
+      }
+    }
+
+    @media (max-width: 350px) {
+      .topbar-inner {
+        padding: 0 12px;
+        gap: 6px;
+      }
+      .brand {
+        font-size: 17.5px;
+      }
+      .btn-nav-solid {
+        padding: 0 10px;
+        font-size: 12px;
+      }
     }
   </style>
 </head>
@@ -1111,14 +1578,61 @@
         </button>
         <a href="./docs.html" class="btn-nav-outline">使用指南</a>
         <a href="#downloads" class="btn-nav-solid">立即下载</a>
+        <button type="button" id="mobile-menu-btn" class="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-drawer" aria-label="打开导航菜单">
+          <span id="mobile-menu-icon" class="ic-wrap">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+          </span>
+        </button>
       </div>
+    </div>
+
+    <!-- Mobile Navigation Sheet -->
+    <div class="mobile-drawer" id="mobile-drawer" hidden>
+      <nav class="mobile-drawer-list" aria-label="移动端导航菜单">
+        <a href="#downloads" class="mobile-drawer-link">
+          <span class="mobile-drawer-link-left">
+            <span class="mobile-drawer-ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </span>
+            <span>安装包下载</span>
+          </span>
+          <svg class="mobile-drawer-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a href="#features" class="mobile-drawer-link">
+          <span class="mobile-drawer-link-left">
+            <span class="mobile-drawer-ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Z"/></svg>
+            </span>
+            <span>核心能力</span>
+          </span>
+          <svg class="mobile-drawer-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a href="./docs.html" class="mobile-drawer-link">
+          <span class="mobile-drawer-link-left">
+            <span class="mobile-drawer-ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"/><path d="M9 13h6M9 17h4"/></svg>
+            </span>
+            <span>使用文档</span>
+          </span>
+          <svg class="mobile-drawer-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a href="./docs.html#apikey" class="mobile-drawer-link">
+          <span class="mobile-drawer-link-left">
+            <span class="mobile-drawer-ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.3-9.3M16 7l3 3"/></svg>
+            </span>
+            <span>配置模型密钥</span>
+          </span>
+          <svg class="mobile-drawer-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </nav>
     </div>
   </header>
 
   <!-- Sub Breadcrumb -->
   <div class="subbar">
     <div class="subbar-inner">
-      <span>Product &nbsp;/&nbsp; <b>OmniAgent Desktop &amp; Workbench v0.2.0</b></span>
+      <span><span class="subbar-prefix">Product &nbsp;/&nbsp; </span><b>OmniAgent Desktop &amp; Workbench v0.2.0</b></span>
       <a href="#downloads" class="subbar-link">
         <span>支持 macOS 与 Windows 双平台</span>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -1231,6 +1745,63 @@
         </div>
       </aside>
 
+      <!-- Mobile Compact App Bar + Scrollable Scenario Pills -->
+      <div class="mobile-scene-bar" id="mobile-scene-bar">
+        <div class="mobile-win-top">
+          <div style="display:inline-flex;align-items:center;gap:9px;min-width:0;">
+            <div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+            <span class="mobile-win-title">OmniAgent Workbench</span>
+          </div>
+          <div class="mobile-win-right">
+            <div class="win-mode-pills" role="group" aria-label="移动端视图切换">
+              <button type="button" class="on" data-mode="workbench" title="工作台视图">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16"/></svg>
+              </button>
+              <button type="button" data-mode="cli" title="CLI 终端视图">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </button>
+            </div>
+            <button type="button" class="sb-gear-btn" data-scene="settings" title="偏好与模型密钥设置" aria-label="偏好与模型密钥设置">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.77 1.02 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="mobile-scene-pills" role="tablist" aria-label="切换功能演示场景">
+          <button type="button" class="m-scene-pill active" data-scene="code">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>
+            <span>代码修复</span>
+          </button>
+          <button type="button" class="m-scene-pill" data-scene="paper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 16v-5M12 16V8M17 16v-3"/></svg>
+            <span>计量论文</span>
+          </button>
+          <button type="button" class="m-scene-pill" data-scene="expense">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
+            <span>票据报销</span>
+          </button>
+          <button type="button" class="m-scene-pill" data-scene="agents">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="4"/><path d="M9 11v2M15 11v2M12 3v3M8 21h8"/></svg>
+            <span>智能体 (7)</span>
+          </button>
+          <button type="button" class="m-scene-pill" data-scene="connectors">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V3M15 8V3"/><path d="M6 8h12v4a6 6 0 0 1-12 0V8Z"/></svg>
+            <span>外部接入</span>
+          </button>
+          <button type="button" class="m-scene-pill" data-scene="memory">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.5a3.5 3.5 0 0 0-5.9 2.5A3.5 3.5 0 0 0 4.5 13a3.5 3.5 0 0 0 1.8 6.5A3.5 3.5 0 0 0 12 20V4.5Z"/><path d="M12 4.5a3.5 3.5 0 0 1 5.9 2.5A3.5 3.5 0 0 1 19.5 13a3.5 3.5 0 0 1-1.8 6.5A3.5 3.5 0 0 1 12 20V4.5Z"/></svg>
+            <span>记忆画像</span>
+          </button>
+          <button type="button" class="m-scene-pill" data-scene="new">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            <span>新建任务</span>
+          </button>
+          <button type="button" class="m-scene-pill" data-scene="cli">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="m7 9 3 3-3 3M13 15h4"/></svg>
+            <span>CLI 终端</span>
+          </button>
+        </div>
+      </div>
+
       <main class="app-main">
         <div style="display:flex;flex-direction:column;flex:1;min-width:0;">
           <div class="app-header" id="scene-header"></div>
@@ -1339,7 +1910,10 @@
           </div>
           <div class="meta-line">
             <span id="meta-mac">v0.2.0 · Universal</span>
-            <button type="button" class="copy-sha" data-pkg="macos_dmg">复制 SHA-256</button>
+            <button type="button" class="copy-sha" data-pkg="macos_dmg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span class="copy-sha-label">复制 SHA-256</span>
+            </button>
           </div>
         </div>
       </div>
@@ -1387,7 +1961,10 @@
           </div>
           <div class="meta-line">
             <span id="meta-win">v0.2.0 · Windows x64</span>
-            <button type="button" class="copy-sha" data-pkg="windows_zip">复制 SHA-256</button>
+            <button type="button" class="copy-sha" data-pkg="windows_zip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span class="copy-sha-label">复制 SHA-256</span>
+            </button>
           </div>
         </div>
       </div>
@@ -1466,7 +2043,38 @@
       key: svgIcon(`<circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.3-9.3M16 7l3 3"/>`),
       bolt: svgIcon(`<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>`),
       agents: svgIcon(`<rect x="4" y="6" width="16" height="12" rx="4"/><path d="M9 11v2M15 11v2M12 3v3M8 21h8"/>`),
+      menu: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>`,
+      close: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
+      download: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
     };
+
+    /* Mobile Drawer Navigation */
+    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+    const mobileMenuIcon = document.getElementById("mobile-menu-icon");
+    const mobileDrawer = document.getElementById("mobile-drawer");
+
+    function setMobileDrawer(open) {
+      if (!mobileDrawer || !mobileMenuBtn) return;
+      mobileDrawer.hidden = !open;
+      mobileMenuBtn.setAttribute("aria-expanded", String(open));
+      mobileMenuBtn.setAttribute("aria-label", open ? "关闭导航菜单" : "打开导航菜单");
+      mobileMenuIcon.innerHTML = open ? IC.close : IC.menu;
+    }
+
+    if (mobileMenuBtn && mobileDrawer) {
+      mobileMenuBtn.addEventListener("click", () => {
+        setMobileDrawer(mobileDrawer.hidden);
+      });
+      mobileDrawer.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", () => setMobileDrawer(false));
+      });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 980 && !mobileDrawer.hidden) setMobileDrawer(false);
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !mobileDrawer.hidden) setMobileDrawer(false);
+      });
+    }
 
     /* Theme Toggle (Dark / Light) */
     const rootEl = document.documentElement;
@@ -1499,14 +2107,20 @@
     const MAC_ICON = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.3c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/></svg>`;
 
     const ua = (navigator.userAgent || "").toLowerCase();
-    const isWin = ua.includes("win");
-    const isMac = ua.includes("mac") && !ua.includes("iphone") && !ua.includes("ipad");
+    const isMobileOS = /iphone|ipad|ipod|android/.test(ua);
+    const isWin = ua.includes("win") && !isMobileOS;
+    const isMac = ua.includes("mac") && !isMobileOS;
 
     const heroBtn = document.getElementById("hero-dl-btn");
     const heroIcon = document.getElementById("hero-dl-icon");
     const heroText = document.getElementById("hero-dl-text");
 
-    if (isWin) {
+    if (isMobileOS) {
+      heroBtn.href = "#downloads";
+      heroBtn.removeAttribute("download");
+      heroIcon.innerHTML = IC.download;
+      heroText.textContent = "查看电脑版安装包 (macOS / Win)";
+    } else if (isWin) {
       heroBtn.href = "./downloads/OmniAgent-v0.2.0-Windows-x64.zip";
       heroIcon.innerHTML = WIN_ICON;
       heroText.textContent = "Download for Windows";
@@ -1544,9 +2158,10 @@
         if (!sha) return;
         try {
           await navigator.clipboard.writeText(sha);
-          const old = btn.textContent;
-          btn.textContent = "已复制 SHA-256";
-          setTimeout(() => { btn.textContent = old; }, 2000);
+          const lbl = btn.querySelector(".copy-sha-label") || btn;
+          const old = lbl.textContent;
+          lbl.textContent = "已复制 SHA-256";
+          setTimeout(() => { lbl.textContent = old; }, 2000);
         } catch {}
       });
     });
@@ -1853,8 +2468,14 @@
       if (!s) return;
       currentScene = sceneKey;
 
-      document.querySelectorAll("#sidebar-nav [data-scene]").forEach((el) => {
-        el.classList.toggle("active", el.dataset.scene === sceneKey);
+      document.querySelectorAll("#sidebar-nav [data-scene], #mobile-scene-bar [data-scene]").forEach((el) => {
+        const isActive = el.dataset.scene === sceneKey;
+        el.classList.toggle("active", isActive);
+        if (isActive && el.classList.contains("m-scene-pill")) {
+          try {
+            el.scrollIntoView({ behavior: "smooth", inline: "nearest", block: "nearest" });
+          } catch {}
+        }
       });
       document.querySelectorAll(".win-mode-pills button").forEach((btn) => {
         btn.classList.toggle("on", sceneKey === "cli" ? btn.dataset.mode === "cli" : btn.dataset.mode === "workbench");
@@ -1866,8 +2487,8 @@
       if (s.placeholder) placeholderEl.textContent = s.placeholder;
     }
 
-    /* Bind all sidebar items (upper nav + demo scenarios + settings gear) */
-    document.querySelectorAll("#sidebar-nav [data-scene]").forEach((el) => {
+    /* Bind all sidebar & mobile bar items (upper nav + demo scenarios + settings gear) */
+    document.querySelectorAll("#sidebar-nav [data-scene], #mobile-scene-bar [data-scene]").forEach((el) => {
       el.addEventListener("click", () => switchScene(el.dataset.scene));
     });
 
